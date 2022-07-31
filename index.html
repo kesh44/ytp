@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <title>fioritura</title>
+</head>
+<body>
+  <div class="bar">
+    <div class="innerbar">
+      <input type="text" placeholder="YouTube video link" id="youtubelink">
+      <input type="button" value="-5" id="back5">
+      <input type="button" value="-10" id="back10">
+      <input type="button" value="play" id="play">
+      <input type="button" value="pause" id="pause">
+
+      <input type="button" value="+5" id="fwd5">
+      <input type="button" value="+10" id="fwd10">
+
+      <input type="button" value="Full screen" id="fs">
+
+    </div>
+  </div>
+  <div id="player"></div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    var p;
+
+    // document.getElementById('submit').addEventListener('click', () => {
+    //   p = new YT.Player('player', {
+    //     height: '450',
+    //     width: '800',
+    //     videoId: 'WKJqh88ilCs',
+    //     playerVars: {
+    //       'controls' : 0,
+    //       'modestbranding' : 1,
+    //       'rel' : 0,
+    //       'showinfo' : 0
+    //     },
+    //     events: {
+    //       onReady: e => e.target.playVideo()
+    //     }
+    //   });
+    // });
+
+    function get_id_from_url(url)
+    {
+      var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+      var match = url.match(regExp);
+      return (match&&match[1].length==11)? match[1] : false;
+    }
+
+    document.getElementById('youtubelink').addEventListener('blur', (e) => {
+      console.log(e)
+      p = new YT.Player('player', {
+        height: '450',
+        width: '800',
+        videoId: get_id_from_url(e.target.value),
+        playerVars: {
+          'controls' : 0,
+          'modestbranding' : 1,
+          'rel' : 0,
+          'showinfo' : 0
+        },
+        events: {
+          onReady: e => e.target.playVideo()
+        }
+      });
+    });
+
+    document.getElementById('fs').addEventListener('click', () => {
+      var element = document.body;
+      var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+      if (requestMethod) { // Native full screen.
+          requestMethod.call(element);
+      } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+          var wscript = new ActiveXObject("WScript.Shell");
+          if (wscript !== null) {
+              wscript.SendKeys("{F11}");
+          }
+      }
+    });
+
+    document.getElementById('back5').addEventListener('click', () => {
+      p.seekTo(p.getCurrentTime() - 5)
+    });
+
+    document.getElementById('back10').addEventListener('click', () => {
+      p.seekTo(p.getCurrentTime() - 10)
+    });
+
+    document.getElementById('fwd5').addEventListener('click', () => {
+      p.seekTo(p.getCurrentTime() + 5)
+    });
+
+    document.getElementById('fwd10').addEventListener('click', () => {
+      p.seekTo(p.getCurrentTime() + 10)
+    });
+
+    document.getElementById('play').addEventListener('click', () => {
+      p.playVideo()
+    });
+
+    document.getElementById('pause').addEventListener('click', () => {
+      p.pauseVideo()
+    });
+  </script>
+</body>
+</html>
