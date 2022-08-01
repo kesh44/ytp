@@ -3,47 +3,68 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <title>fioritura</title>
 </head>
 <body>
-  <div class="bar">
-    <div class="innerbar">
-      <input type="text" placeholder="YouTube video link" id="youtubelink">
-      <input type="button" value="-5" id="back5">
-      <input type="button" value="-10" id="back10">
-      <input type="button" value="play" id="play">
-      <input type="button" value="pause" id="pause">
+  <div class="row g-0">
+    <div class="col-2">
+      <div class="bar">
+        <div class="container">
+          <input class="text-input mb-3" type="text" placeholder="YouTube video link" id="youtubelink">
 
-      <input type="button" value="+5" id="fwd5">
-      <input type="button" value="+10" id="fwd10">
 
-      <input type="button" value="Full screen" id="fs">
+          <input type="button" class="w50" value="play" id="play">
+          <input class="mb-3" type="button" class="w50" value="pause" id="pause">
+
+
+          <p>Navigation:</p>
+
+          <div class="row g-0 mb-3">
+            <div class="col-3"><input type="button" value="-10" id="back10"></div>
+            <div class="col-3"><input type="button" value="-5" id="back5"></div>
+            <div class="col-3"><input type="button" value="+5" id="fwd5"></div>
+            <div class="col-3"><input type="button" value="+10" id="fwd10"></div>
+          </div>
+
+          <p>Speed:</p>
+
+          <div class="row g-0 mb-3">
+            <div class="col-3"><input type="button" value="-" id="slowdown"></div>
+            <div class="col-6"><input type="button" value="Reset" id="reset"></div>
+            <div class="col-3"><input type="button" value="+" id="speedup"></div>
+          </div>
+
+          <div class="row g-0">
+            <div class="col-6"><input type="button" value="Set marker" id="setmarker"></div>
+            <div class="col-6"><input type="button" value="Clear marker" id="clearmarker"></div>
+          </div>
+
+          <input class="mb-3" type="button" value="Go to marker" id="gotomarker">
+          
+
+
+
+
+
+          <input type="button" value="Full screen" id="fs">
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <div id="player"></div>
     </div>
   </div>
-  <div id="player"></div>
-  <div class="seekbar"></div>
+
+
+
 
   <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script>
     var p;
-
-    // document.getElementById('submit').addEventListener('click', () => {
-    //   p = new YT.Player('player', {
-    //     height: '450',
-    //     width: '800',
-    //     videoId: 'WKJqh88ilCs',
-    //     playerVars: {
-    //       'controls' : 0,
-    //       'modestbranding' : 1,
-    //       'rel' : 0,
-    //       'showinfo' : 0
-    //     },
-    //     events: {
-    //       onReady: e => e.target.playVideo()
-    //     }
-    //   });
-    // });
+    var marker;
 
     function get_id_from_url(url)
     {
@@ -53,34 +74,42 @@
     }
 
     document.getElementById('youtubelink').addEventListener('blur', (e) => {
-      console.log(e)
-      p = new YT.Player('player', {
-        height: '450',
-        width: '800',
-        videoId: get_id_from_url(e.target.value),
-        playerVars: {
-          'controls' : 0,
-          'modestbranding' : 1,
-          'rel' : 0,
-          'showinfo' : 0
-        },
-        events: {
-          onReady: e => e.target.playVideo()
-        }
-      });
+
+      var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+      if(e.target.value.match(re))
+      {
+        p = new YT.Player('player', {
+          height: '450',
+          width: '800',
+          videoId: get_id_from_url(e.target.value),
+          playerVars: {
+            'controls' : 1,
+            'modestbranding' : 1,
+            'rel' : 0,
+            'fs' : 0
+          },
+          events: {
+            onReady: e => e.target.playVideo()
+          }
+        });
+      }
     });
 
     document.getElementById('fs').addEventListener('click', () => {
+      if (document.fullscreenElement != null){
+        document.exitFullscreen()
+      }
+
       var element = document.body;
       var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
 
       if (requestMethod) { // Native full screen.
-          requestMethod.call(element);
+        requestMethod.call(element);
       } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-          var wscript = new ActiveXObject("WScript.Shell");
-          if (wscript !== null) {
-              wscript.SendKeys("{F11}");
-          }
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+          wscript.SendKeys("{F11}");
+        }
       }
     });
 
@@ -107,6 +136,44 @@
     document.getElementById('pause').addEventListener('click', () => {
       p.pauseVideo()
     });
+
+    document.getElementById('speedup').addEventListener('click', () => {
+      var available_rates = p.getAvailablePlaybackRates()
+      var currentIndex = available_rates.indexOf(p.getPlaybackRate());
+
+      if(currentIndex + 1 < available_rates.length)
+      {
+        p.setPlaybackRate(available_rates[currentIndex + 1])
+      }      
+    });
+
+    document.getElementById('slowdown').addEventListener('click', () => {
+      var available_rates = p.getAvailablePlaybackRates()
+      var currentIndex = available_rates.indexOf(p.getPlaybackRate());
+
+      if(currentIndex > 0)
+      {
+        p.setPlaybackRate(available_rates[currentIndex - 1])
+      }      
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      p.setPlaybackRate(1)
+    });
+
+    document.getElementById('setmarker').addEventListener('click', () => {
+      marker = p.getCurrentTime()
+    });
+
+    document.getElementById('gotomarker').addEventListener('click', () => {
+      if (marker > -1) {p.seekTo(marker)}
+
+    });
+
+    document.getElementById('clearmarker').addEventListener('click', () => {
+      marker = -1;
+    });
+
   </script>
 </body>
 </html>
