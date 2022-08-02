@@ -11,13 +11,8 @@
   <div class="row g-0">
     <div class="col-2">
       <div class="bar">
-        <div class="container">
-          <input class="text-input mb-3" type="text" placeholder="YouTube video link" id="youtubelink">
-
-
-          <input type="button" class="w50" value="play" id="play">
-          <input class="mb-3" type="button" class="w50" value="pause" id="pause">
-
+        <div class="container text-center">
+          <input type="button" value="Full screen" id="fs">
 
           <p>Navigation:</p>
 
@@ -31,9 +26,9 @@
           <p>Speed:</p>
 
           <div class="row g-0 mb-3">
-            <div class="col-3"><input type="button" value="-" id="slowdown"></div>
-            <div class="col-6"><input type="button" value="Reset" id="reset"></div>
-            <div class="col-3"><input type="button" value="+" id="speedup"></div>
+            <div class="col-3"><input class="w-100" type="button" value="-" id="slowdown"></div>
+            <div class="col-6"><input class="w-100" type="button" value="Reset" id="reset"></div>
+            <div class="col-3"><input class="w-100" type="button" value="+" id="speedup"></div>
           </div>
 
           <div class="row g-0">
@@ -42,18 +37,21 @@
           </div>
 
           <input class="mb-3" type="button" value="Go to marker" id="gotomarker">
+
+          <p id="markerstatus">Marker not set</p>
           
 
 
 
 
 
-          <input type="button" value="Full screen" id="fs">
         </div>
       </div>
     </div>
     <div class="col-10">
-      <div id="player"></div>
+      <div id="player">
+        <input class="text-input mb-3" type="text" placeholder="Paste video link here..." id="youtubelink">
+      </div>
     </div>
   </div>
 
@@ -73,7 +71,7 @@
       return (match&&match[1].length==11)? match[1] : false;
     }
 
-    document.getElementById('youtubelink').addEventListener('blur', (e) => {
+    document.getElementById('youtubelink').addEventListener('input', (e) => {
 
       var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
       if(e.target.value.match(re))
@@ -127,14 +125,6 @@
 
     document.getElementById('fwd10').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() + 10)
-    });
-
-    document.getElementById('play').addEventListener('click', () => {
-      p.playVideo()
-    });
-
-    document.getElementById('pause').addEventListener('click', () => {
-      p.pauseVideo()
     });
 
     document.getElementById('speedup').addEventListener('click', () => {

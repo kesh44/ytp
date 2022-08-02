@@ -6,7 +6,7 @@ body {
 
 .bar {
 	float: left;
-	background-color: #323232;
+	background-color: #222;
 	width: 100%;
 	height: 100vh;
 	display: flex;
@@ -14,7 +14,7 @@ body {
 	align-items: center;
 	overflow: hidden;
 	padding: 10px;
-    font-size: 10px;
+	font-size: 10px;
 }
 
 .innerbar {
@@ -27,13 +27,24 @@ body {
 	float: left;
 	width: 100%;
 	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 input {
-	width: 100%;
 	padding: 4px;
 }
 
 .text-input {
+	padding: 30px;
+	border-radius: 30px;
+	font-size: 30px;
+	background-color: #222;
+	border: 0px;
+	color: #777;
+}
 
+w-100 {
+	width: 100%;
 }
