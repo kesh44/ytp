@@ -33,7 +33,12 @@ body {
 }
 
 input {
-	padding: 4px;
+	padding: 8px 0px;
+	cursor: pointer;
+	color: white;
+	background: black;
+	border: 1px solid white;
+	border-radius: 5px;
 }
 
 .text-input {
