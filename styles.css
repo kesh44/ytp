@@ -37,17 +37,22 @@ input {
 	cursor: pointer;
 	color: white;
 	background: black;
-	border: 1px solid white;
-	border-radius: 5px;
+	border: 1px solid #444;
 }
 
 .text-input {
 	padding: 30px;
 	border-radius: 30px;
 	font-size: 30px;
-	background-color: #222;
+	font-weight: bold;
+	background-color: #000;
 	border: 0px;
 	color: #777;
+	caret-color: #fff;
+}
+
+input:focus {
+	outline: none;
 }
 
 w-100 {
