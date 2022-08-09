@@ -12,20 +12,24 @@
     <div class="col-2">
       <div class="bar">
         <div class="container text-center">
-          <input class="mb-2 w-100" type="button" value="Full screen" id="fs">
+          <!-- <input class="mb-2 w-100" type="button" value="Full screen" id="fs"> -->
+
+          <button id="fs" class="mb-2 w-100"><img src="fs.png"></button>
 
 
           <div class="row g-0 mb-2">
-            <div class="col-3"><input class="w-100" type="button" value="-10" id="back10"></div>
-            <div class="col-3"><input class="w-100" type="button" value="-5" id="back5"></div>
-            <div class="col-3"><input class="w-100" type="button" value="+5" id="fwd5"></div>
-            <div class="col-3"><input class="w-100" type="button" value="+10" id="fwd10"></div>
+            <div class="col-6">
+              <button id="back5" class="w-100"><img class="w-100" src="r5.png"></button>
+            </div>
+            <div class="col-6">
+              <button id="back10" class="w-100"><img class="w-100" src="r10.png"></button>
+            </div>
           </div>
 
           <div class="row g-0 mb-2">
-            <div class="col-3"><input class="w-100" type="button" value="-" id="slowdown"></div>
-            <div class="col-6"><input class="w-100" type="button" value="Reset" id="reset"></div>
-            <div class="col-3"><input class="w-100" type="button" value="+" id="speedup"></div>
+            <div class="col-4"><input class="w-100" type="button" value="-" id="slowdown"></div>
+            <div class="col-4"><input class="w-100" type="button" value="Reset" id="reset"></div>
+            <div class="col-4"><input class="w-100" type="button" value="+" id="speedup"></div>
           </div>
 
           <div class="row g-0">
@@ -105,14 +109,6 @@
 
     document.getElementById('back10').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() - 10)
-    });
-
-    document.getElementById('fwd5').addEventListener('click', () => {
-      p.seekTo(p.getCurrentTime() + 5)
-    });
-
-    document.getElementById('fwd10').addEventListener('click', () => {
-      p.seekTo(p.getCurrentTime() + 10)
     });
 
     document.getElementById('speedup').addEventListener('click', () => {
