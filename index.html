@@ -1,4 +1,4 @@
-<!doctype html>
+,<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -14,22 +14,34 @@
         <div class="container text-center">
           <!-- <input class="mb-2 w-100" type="button" value="Full screen" id="fs"> -->
 
-          <button id="fs" class="mb-2 w-100"><img src="fs.png"></button>
-
+          <div class="row g-0 mb-2">
+            <button id="fs" class="mb-2 w-100"><img src="fs.png"></button>
+          </div>
 
           <div class="row g-0 mb-2">
-            <div class="col-6">
+            <div class="col-4">
               <button id="back5" class="w-100"><img class="w-100" src="r5.png"></button>
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <button id="back10" class="w-100"><img class="w-100" src="r10.png"></button>
+            </div>
+            <div class="col-4">
+              <button id="back30" class="w-100"><img class="w-100" src="r30.png"></button>
             </div>
           </div>
 
           <div class="row g-0 mb-2">
-            <div class="col-4"><input class="w-100" type="button" value="-" id="slowdown"></div>
-            <div class="col-4"><input class="w-100" type="button" value="Reset" id="reset"></div>
-            <div class="col-4"><input class="w-100" type="button" value="+" id="speedup"></div>
+            <div class="col-4">
+              <button id="slowdown" class="w-100"><img class="w-100" src="rw.png"></button>
+              <!-- <input class="w-100" type="button" value="-" id="slowdown"> -->
+            </div>
+            <div class="col-4">
+              <button id="reset" class="w-100">1.0</button>
+            </div>
+            <div class="col-4">
+              <button id="speedup" class="w-100"><img class="w-100" src="ff.png"></button>
+              <!-- <input class="w-100" type="button" value="+" id="speedup"> -->
+            </div>
           </div>
 
           <div class="row g-0">
@@ -111,6 +123,10 @@
       p.seekTo(p.getCurrentTime() - 10)
     });
 
+    document.getElementById('back30').addEventListener('click', () => {
+      p.seekTo(p.getCurrentTime() - 30)
+    });
+
     document.getElementById('speedup').addEventListener('click', () => {
       var available_rates = p.getAvailablePlaybackRates()
       var currentIndex = available_rates.indexOf(p.getPlaybackRate());
@@ -118,6 +134,7 @@
       if(currentIndex + 1 < available_rates.length)
       {
         p.setPlaybackRate(available_rates[currentIndex + 1])
+        document.getElementById('reset').innerHTML = available_rates[currentIndex + 1]
       }      
     });
 
@@ -128,11 +145,13 @@
       if(currentIndex > 0)
       {
         p.setPlaybackRate(available_rates[currentIndex - 1])
+        document.getElementById('reset').innerHTML = available_rates[currentIndex - 1]
       }      
     });
 
     document.getElementById('reset').addEventListener('click', () => {
       p.setPlaybackRate(1)
+      document.getElementById('reset').innerHTML = '1'
     });
 
     document.getElementById('setmarker').addEventListener('click', () => {
