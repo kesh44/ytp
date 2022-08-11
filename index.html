@@ -1,11 +1,11 @@
-,<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
-  <title>fioritura</title>
+  <title>fior</title>
 </head>
 <body>
   <div class="row g-0">
@@ -15,7 +15,7 @@
           <!-- <input class="mb-2 w-100" type="button" value="Full screen" id="fs"> -->
 
           <div class="row g-0 mb-2">
-            <button id="fs" class="mb-2 w-100"><img src="fs.png"></button>
+            <button id="fs" class="w-100"><img src="fs.png"></button>
           </div>
 
           <div class="row g-0 mb-2">
@@ -31,12 +31,16 @@
           </div>
 
           <div class="row g-0 mb-2">
+            <button id="pp" class="w-100"><img src="pp.png"></button>
+          </div>
+
+          <div class="row g-0 mb-2">
             <div class="col-4">
               <button id="slowdown" class="w-100"><img class="w-100" src="rw.png"></button>
               <!-- <input class="w-100" type="button" value="-" id="slowdown"> -->
             </div>
             <div class="col-4">
-              <button id="reset" class="w-100">1.0</button>
+              <button id="reset" class="w-100">1</button>
             </div>
             <div class="col-4">
               <button id="speedup" class="w-100"><img class="w-100" src="ff.png"></button>
@@ -45,10 +49,15 @@
           </div>
 
           <div class="row g-0">
-            <div class="col-4"><input class="w-100" type="button" value="Set" id="setmarker"></div>
-            <div class="col-4"><input class="w-100" type="button" value="Clear" id="clearmarker"></div>
-            <div class="col-4"><input class="w-100" type="button" value="Go 2" id="gotomarker"></div>
+            <div class="col-6"><input class="w-100" type="button" value="Set" id="setmarker"></div>
+            <div class="col-6"><input class="w-100" type="button" value="Clear" id="clearmarker"></div>
           </div>
+
+          <div class="row g-0">
+            <input class="w-100" type="button" value="Go 2" id="gotomarker">
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -112,6 +121,14 @@
         if (wscript !== null) {
           wscript.SendKeys("{F11}");
         }
+      }
+    });
+
+    document.getElementById('pp').addEventListener('click', () => {
+      if (p.getPlayerState() === 1) {
+        p.pauseVideo()
+      } else {
+        p.playVideo()
       }
     });
 
