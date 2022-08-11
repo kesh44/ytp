@@ -12,7 +12,6 @@
     <div class="col-2">
       <div class="bar">
         <div class="container text-center">
-          <!-- <input class="mb-2 w-100" type="button" value="Full screen" id="fs"> -->
 
           <div class="row g-0 mb-2">
             <button id="fs" class="w-100"><img src="fs.png"></button>
@@ -37,14 +36,12 @@
           <div class="row g-0 mb-2">
             <div class="col-4">
               <button id="slowdown" class="w-100"><img class="w-100" src="rw.png"></button>
-              <!-- <input class="w-100" type="button" value="-" id="slowdown"> -->
             </div>
             <div class="col-4">
               <button id="reset" class="w-100">1</button>
             </div>
             <div class="col-4">
               <button id="speedup" class="w-100"><img class="w-100" src="ff.png"></button>
-              <!-- <input class="w-100" type="button" value="+" id="speedup"> -->
             </div>
           </div>
 
@@ -57,6 +54,9 @@
             <input class="w-100" type="button" value="Go 2" id="gotomarker">
           </div>
 
+          <div class="row g-0">
+            <canvas id="canvas"></canvas>
+          </div>
 
         </div>
       </div>
@@ -76,6 +76,14 @@
   <script>
     var p;
     var marker;
+    var state = {'init_time': 0, 'playback_rate': 1, 'marker_position': -1}
+    let canvas;
+    let context;
+    let ticks;
+
+    canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d');
+
 
     function get_id_from_url(url)
     {
@@ -84,8 +92,8 @@
       return (match&&match[1].length==11)? match[1] : false;
     }
 
-    document.getElementById('youtubelink').addEventListener('input', (e) => {
 
+    document.getElementById('youtubelink').addEventListener('input', (e) => {
       var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
       if(e.target.value.match(re))
       {
@@ -106,6 +114,7 @@
       }
     });
 
+
     document.getElementById('fs').addEventListener('click', () => {
       if (document.fullscreenElement != null){
         document.exitFullscreen()
@@ -124,6 +133,7 @@
       }
     });
 
+
     document.getElementById('pp').addEventListener('click', () => {
       if (p.getPlayerState() === 1) {
         p.pauseVideo()
@@ -132,17 +142,21 @@
       }
     });
 
+
     document.getElementById('back5').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() - 5)
     });
+
 
     document.getElementById('back10').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() - 10)
     });
 
+
     document.getElementById('back30').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() - 30)
     });
+
 
     document.getElementById('speedup').addEventListener('click', () => {
       var available_rates = p.getAvailablePlaybackRates()
@@ -155,6 +169,7 @@
       }      
     });
 
+
     document.getElementById('slowdown').addEventListener('click', () => {
       var available_rates = p.getAvailablePlaybackRates()
       var currentIndex = available_rates.indexOf(p.getPlaybackRate());
@@ -166,23 +181,54 @@
       }      
     });
 
+
     document.getElementById('reset').addEventListener('click', () => {
       p.setPlaybackRate(1)
       document.getElementById('reset').innerHTML = '1'
     });
 
+
     document.getElementById('setmarker').addEventListener('click', () => {
       marker = p.getCurrentTime()
     });
+
 
     document.getElementById('gotomarker').addEventListener('click', () => {
       if (marker > -1) {p.seekTo(marker)}
 
     });
 
+
     document.getElementById('clearmarker').addEventListener('click', () => {
       marker = -1;
     });
+
+
+    window.requestAnimationFrame(gameLoop);
+
+    function gameLoop()
+    {
+      draw();
+      window.requestAnimationFrame(gameLoop);
+    }
+
+
+    function draw()
+    {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      context.fillStyle = '#ff8080';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+
+    }
+
+
+    function update_player_state(init_time, playback_rate, marker_position)
+    {
+      state = {'init_time': init_time, 'playback_rate': playback_rate, 'marker_position': marker_position}
+    }
+
 
   </script>
 </body>
