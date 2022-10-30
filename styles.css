@@ -3,6 +3,13 @@ body {
 	color: white;
 	margin: 0px;
 	font-family: 'Silkscreen', cursive;
+	min-height: 100vh;
+	/* mobile viewport bug fix */
+	min-height: -webkit-fill-available;
+}
+
+html {
+	height: -webkit-fill-available;
 }
 
 .bar {
@@ -82,7 +89,7 @@ img {
 }
 
 .holderr {
-	padding: 2px;
+	padding: 0 0.2vw;
 	height: 9vh;
 }
 
@@ -97,5 +104,23 @@ img {
 	height: 100%;
 }
 
-.input-group-text {
+.input-group-text, .form-control {
+	height: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+	-moz-appearance:textfield; /* Firefox */
+}
+
+input[type=number]:focus {
+	outline: none;
+	box-shadow: none;
+	border: none;
 }

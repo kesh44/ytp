@@ -10,10 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="manifest" href="manifest.json">
   <title>ytplayer</title>
 </head>
-<body onload="resize_all()">
+<body onload="">
   <div class="row g-0">
     <div class="col-2">
       <div class="bar">
@@ -25,7 +24,7 @@
               </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 mt-2">
               <div class="holderr holderr-half" id="rw-text"><span>Rewind</span></div>
             </div>
             <div class="col-4">
@@ -41,15 +40,25 @@
               <div class="holderr">
                 <button id="back30" class="w-100"><span>30</span></button>
               </div>
-              
-            </div>
-            <div class="col-4 offset-4">
-              <div class="holderr">
-                <button id="pp" class="w-100"><img src="pp.png"></button>
-              </div>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 mt-2">
+              <div class="holderr holderr-half" id="bm-text"><span>Go to</span></div>
+            </div>
+
+            <div class="col-8">
+              <div class="holderr">
+                <div class="input-group">
+                  <input id="goto" type="number" class="form-control" placeholder="30" aria-describedby="basic-addon2">
+                  <span class="input-group-text" id="basic-addon2">s</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="holderr"><button id="gotomarker" class="w-100"><span>Go</span></button></div>              
+            </div>
+
+            <div class="col-12 mt-2">
               <div class="holderr holderr-half" id="speed-text"><span>Speed</span></div>
             </div>
             <div class="col-4">
@@ -64,21 +73,12 @@
               <div class="holderr"><button id="speedup" class="w-100"><span>+</span></button></div>
             </div>
 
-            <div class="col-12">
-              <div class="holderr holderr-half" id="bm-text"><span>Go to</span></div>
-            </div>
-
-            <div class="col-12">
+            <div class="col-6 offset-3 mt-3">
               <div class="holderr">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="30" aria-describedby="basic-addon2">
-                  <span class="input-group-text" id="basic-addon2">s</span>
-                </div>
+                <button id="pp" class="w-100"><img src="pp.png"></button>
               </div>
             </div>
-            <div class="col-12">
-              <div class="holderr"><button id="gotomarker" class="w-100"><span>Go</span></button></div>              
-            </div>
+
           </div>
 
         </div>
@@ -99,12 +99,6 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     var p;
-    var marker;
-
-    // canvas = document.getElementById('canvas');
-    // context = canvas.getContext('2d');
-
-    // $('#fs').fitText();
 
     function resize_all()
     {
@@ -120,8 +114,10 @@
       $('#gotomarker').textfill({});
     }
 
-    window.addEventListener('resize', resize_all);
-
+    window.onload = (event) => {
+      window.addEventListener('resize', resize_all);
+      resize_all()
+    };
 
     function get_id_from_url(url)
     {
@@ -227,33 +223,16 @@
     });
 
 
-    document.getElementById('setmarker').addEventListener('click', () => {
-      marker = p.getCurrentTime()
-    });
-
-
     document.getElementById('gotomarker').addEventListener('click', () => {
-      if (marker > -1) {p.seekTo(marker)}
-
-    });
-
-
-    document.getElementById('clearmarker').addEventListener('click', () => {
-      marker = -1;
+      var marker = $("#goto").val()
+      if (marker > 0) {p.seekTo(marker)}
     });
 
     function _setplaybackrate(rate)
     {
       p.setPlaybackRate(rate)
-      // if (rate == 1)
-      // {
-      //   document.getElementById('reset').innerHTML = '1.00'
-      // } else {
-      //   document.getElementById('reset').innerHTML = rate
-      // }
-
       document.getElementById('reset').innerHTML = rate.toFixed(2)
-      
+      resize_all()
     }
 
   </script>
