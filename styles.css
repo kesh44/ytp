@@ -6,7 +6,7 @@ body {
 }
 
 .bar {
-	background-color: #222;
+	background-color: #444;
 	width: 100%;
 	height: 100vh;
 	display: flex;
@@ -15,6 +15,7 @@ body {
 	overflow: hidden;
 	padding: 10px;
 	font-size: 1.1rem;
+	/*box-shadow: inset -2px 0px 9px #111;*/
 }
 
 .innerbar {
@@ -36,16 +37,19 @@ button {
 	background-color: #000;
 	height: 10vh;
 	color: white;
-    border: none;
-    outline: none;
+	border: none;
+	outline: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 button:hover {
-	background-color: #444;
+	background-color: #222;
 }
 
 button:active {
-	background-color: #666;
+	background-color: #333;
 }
 
 .text-input {
@@ -68,20 +72,30 @@ w-100 {
 button {
 	width: 100%;
 	height: 100%;
-	border-radius: 5px;
+	border-radius: 6px;
 }
 
 img {
-    width:80%;
-    height:80%;
-    object-fit: cover;
+	width:80%;
+	height:80%;
+	object-fit: cover;
 }
 
 .holderr {
-	padding: 3px;
+	padding: 2px;
 	height: 9vh;
 }
 
 .holderr-half {
 	height: 6vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.input-group {
+	height: 100%;
+}
+
+.input-group-text {
 }
