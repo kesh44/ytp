@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+  <link rel="manifest" href="manifest.json">
   <title>ytplayer</title>
 </head>
-<body>
+<body onload="resize_all()">
   <div class="row g-0">
     <div class="col-2">
       <div class="bar">
@@ -105,20 +105,22 @@
     // context = canvas.getContext('2d');
 
     // $('#fs').fitText();
-    $("#back5").textfill({});
-    $('#back10').textfill({});
-    $('#back30').textfill({});
-    $('#slowdown').textfill({});
-    $('#reset').textfill({});
-    $('#speedup').textfill({});
-    $('#rw-text').textfill({});
-    $('#speed-text').textfill({});
-    $('#bm-text').textfill({});
-    $('#gotomarker').textfill({});
-    
-    
-    
 
+    function resize_all()
+    {
+      $("#back5").textfill({});
+      $('#back10').textfill({});
+      $('#back30').textfill({});
+      $('#slowdown').textfill({});
+      $('#reset').textfill({});
+      $('#speedup').textfill({});
+      $('#rw-text').textfill({});
+      $('#speed-text').textfill({});
+      $('#bm-text').textfill({});
+      $('#gotomarker').textfill({});
+    }
+
+    window.addEventListener('resize', resize_all);
 
 
     function get_id_from_url(url)
