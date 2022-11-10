@@ -13,81 +13,41 @@
   <title>ytplayer</title>
 </head>
 <body onload="">
-  <div class="row g-0">
-    <div class="col-2">
-      <div class="bar">
-        <div class="container text-center">
-          <div class="row g-0">
-            <div class="col-4 offset-4">
-              <div class="holderr">
-                <button id="fs" class=""><img src="fs.png"></button>
-              </div>
-            </div>
+  <div class="panel text-center">
 
-            <div class="col-12 mt-2">
-              <div class="holderr holderr-half" id="rw-text"><span>Rewind</span></div>
-            </div>
-            <div class="col-4">
-              <div class="holderr"><button id="back5" class="w-100"><span>05</span></button></div>
-              
-            </div>
-            <div class="col-4">
-              <div class="holderr">
-                <button id="back10" class="w-100"><span>10</span></button>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="holderr">
-                <button id="back30" class="w-100"><span>30</span></button>
-              </div>
-            </div>
+    <button id="back5"><img src="r5.png"></button>
+    <button id="back10"><img src="r10.png"></button>
+    
+    <div class="w-100"></div>
 
-            <div class="col-12 mt-2">
-              <div class="holderr holderr-half" id="bm-text"><span>Go to</span></div>
-            </div>
-
-            <div class="col-8">
-              <div class="holderr">
-                <div class="input-group">
-                  <input id="goto" type="number" class="form-control" placeholder="30" aria-describedby="basic-addon2">
-                  <span class="input-group-text" id="basic-addon2">s</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="holderr"><button id="gotomarker" class="w-100"><span>Go</span></button></div>              
-            </div>
-
-            <div class="col-12 mt-2">
-              <div class="holderr holderr-half" id="speed-text"><span>Speed</span></div>
-            </div>
-            <div class="col-4">
-              <div class="holderr"><button id="slowdown" class="w-100"><span>-</span></button></div>
-              
-            </div>
-            <div class="col-4">
-              <div class="holderr"><button id="reset" class="w-100"><span>1.00</span></button></div>
-              
-            </div>
-            <div class="col-4">
-              <div class="holderr"><button id="speedup" class="w-100"><span>+</span></button></div>
-            </div>
-
-            <div class="col-6 offset-3 mt-3">
-              <div class="holderr">
-                <button id="pp" class="w-100"><img src="pp.png"></button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
+    <div class="btn-grp">
+      <input id="seek-to" type="number" placeholder="30">
+      <div id="go" class="h-100"> <img class="btn-grp-img" id="go-img" src="pin.png"> </div>
     </div>
-    <div class="col-10">
-      <div id="player">
-        <input autofocus class="text-input mb-3" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
-      </div>
+
+    <div class="w-100"></div>
+
+    <button id="pp" class=""><img src="pp.png"></button>
+    
+    <div class="w-100"></div>
+
+    <div class="btn-grp">
+      <div id="slowdown" class="h-100"> <img class="btn-grp-img" id="slowdown-img" src="rw.png"> </div>
+      <div id="speedup"  class="h-100">  <img class="btn-grp-img" id="speedup-img" src="ff.png"> </div>
+    </div>
+
+<!--     <button id="slowdown"><img src="rw.png"></button>
+    <button id="reset"><span>1.00</span></button>
+    <button id="speedup"><img src="ff.png"></button> -->
+
+    <div class="w-100"></div>
+    <button id="fs" class="pl-2"><img src="fs.png"></button>
+    <button id="rl" class="pl-2"><img src="clear.png"></button>
+
+  </div>
+  <div class="row g-0">
+    <div id="player">
+      <input autofocus class="text-input mb-3" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
     </div>
   </div>
 
@@ -95,29 +55,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
   <script src="jquery.textfill.js"></script>
-  <!-- <script src="jquery.fittext.js"></script> -->
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     var p;
-
-    function resize_all()
-    {
-      $("#back5").textfill({});
-      $('#back10').textfill({});
-      $('#back30').textfill({});
-      $('#slowdown').textfill({});
-      $('#reset').textfill({});
-      $('#speedup').textfill({});
-      $('#rw-text').textfill({});
-      $('#speed-text').textfill({});
-      $('#bm-text').textfill({});
-      $('#gotomarker').textfill({});
-    }
-
-    window.onload = (event) => {
-      window.addEventListener('resize', resize_all);
-      resize_all()
-    };
 
     function get_id_from_url(url)
     {
@@ -125,7 +65,6 @@
       var match = url.match(regExp);
       return (match&&match[1].length==11)? match[1] : false;
     }
-
 
     document.getElementById('youtubelink').addEventListener('input', (e) => {
       var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -152,7 +91,6 @@
       e.target.playVideo()
     }
 
-
     document.getElementById('fs').addEventListener('click', () => {
       if (document.fullscreenElement != null){
         document.exitFullscreen()
@@ -171,15 +109,16 @@
       }
     });
 
-
     document.getElementById('pp').addEventListener('click', () => {
-      if (p.getPlayerState() === 1) {
-        p.pauseVideo()
-      } else {
-        p.playVideo()
+      if (p)
+      {
+        if (p.getPlayerState() === 1) {
+          p.pauseVideo()
+        } else {
+          p.playVideo()
+        }
       }
     });
-
 
     document.getElementById('back5').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() - 5)
@@ -190,49 +129,60 @@
       p.seekTo(p.getCurrentTime() - 10)
     });
 
-
-    document.getElementById('back30').addEventListener('click', () => {
-      p.seekTo(p.getCurrentTime() - 30)
-    });
-
-
     document.getElementById('speedup').addEventListener('click', () => {
-      var available_rates = p.getAvailablePlaybackRates()
-      var currentIndex = available_rates.indexOf(p.getPlaybackRate());
-
-      if(currentIndex + 1 < available_rates.length)
+      if (p)
       {
-        _setplaybackrate(available_rates[currentIndex + 1])
-      }      
-    });
+        var available_rates = p.getAvailablePlaybackRates()
+        var currentIndex = available_rates.indexOf(p.getPlaybackRate());
 
+        if(currentIndex + 1 < available_rates.length)
+        {
+          _setplaybackrate(available_rates[currentIndex + 1])
+        } 
+      }
+    });
 
     document.getElementById('slowdown').addEventListener('click', () => {
-      var available_rates = p.getAvailablePlaybackRates()
-      var currentIndex = available_rates.indexOf(p.getPlaybackRate());
+      if (p)
+      {      
+        var available_rates = p.getAvailablePlaybackRates()
+        var currentIndex = available_rates.indexOf(p.getPlaybackRate());
 
-      if(currentIndex > 0)
-      {
-        _setplaybackrate(available_rates[currentIndex - 1])
-      }      
+        if(currentIndex > 0)
+        {
+          _setplaybackrate(available_rates[currentIndex - 1])
+        } 
+      }
     });
 
-
-    document.getElementById('reset').addEventListener('click', () => {
-      _setplaybackrate(1)
+    document.getElementById('rl').addEventListener('click', () => {
+      window.location.reload();
     });
 
-
-    document.getElementById('gotomarker').addEventListener('click', () => {
-      var marker = $("#goto").val()
-      if (marker > 0) {p.seekTo(marker)}
-    });
+    // document.getElementById('gotomarker').addEventListener('click', () => {
+    //   var marker = $("#goto").val()
+    //   if (marker > 0) {p.seekTo(marker)}
+    // });
 
     function _setplaybackrate(rate)
     {
       p.setPlaybackRate(rate)
-      document.getElementById('reset').innerHTML = rate.toFixed(2)
-      resize_all()
+      
+      var speedup_img  = document.getElementById("speedup-img");
+      var slowdown_img = document.getElementById("slowdown-img");
+
+      if (rate > 1)
+      {
+        slowdown_img.classList.remove("red");
+        speedup_img.classList.add("green");
+      } else if (rate < 1)
+      {
+        slowdown_img.classList.add("red");
+        speedup_img.classList.remove("green");
+      } else {
+        slowdown_img.classList.remove("red");
+        speedup_img.classList.remove("green");
+      }
     }
 
   </script>
