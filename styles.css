@@ -56,8 +56,8 @@ html {
 	padding: 0px 8px;
 }
 
-#current-speed {
-	padding: 0px 10px;
+#speedup, #slowdown {
+	padding: 5px;
 }
 
 img {
@@ -75,9 +75,9 @@ button {
 	border: none;
 	outline: none;
 	padding: 9px;
-    margin-right: 3px;
-    margin-left: 3px;
-    border-radius: 8px;
+	margin-right: 3px;
+	margin-left: 3px;
+	border-radius: 8px;
 }
 
 button:hover {
@@ -101,16 +101,16 @@ h-100 {
 }
 
 #go-img {
-	padding: 12px 5px;
+	padding: 15px 5px;
 }
 
 #seek-to {
 	height: 80%;
-    width: 6vw;
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 6vh;
+	width: 6vw;
+	background: transparent;
+	border: none;
+	color: white;
+	font-size: 6vh;
 }
 
 input[type=number] {
@@ -125,22 +125,22 @@ input[type=number]:focus {
 
 .alert {
 	display: none;
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-	background-color: #ff0000;
-	z-index: 999;
-	border-radius: 0px;
 }
 
 @media(orientation: portrait){ /* tablet and smaller */
 	.alert {
-		display: block;
-	    position: fixed;
-	    height: 100vh;
-	    width: 100vw;
-		background-color: #ff0000;
+		display: flex;
+		position: fixed;
+		height: 100vh;
+		width: 100vw;
+		background-color: #111;
 		z-index: 999;
 		border-radius: 0px;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#player {
+		display: none;
 	}
 }
