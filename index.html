@@ -3,63 +3,52 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <title>ytplayer</title>
+  <title>PianoTube</title>
 </head>
 <body onload="">
   <div class="alert">
     <div>Please turn your<br>phone landscape!</div>
   </div>
 
-  <div class="panel text-center">
-
-    <button id="back5"><img src="r5.png"></button>
-    <button id="back10"><img src="r10.png"></button>
-    
-    <div class="w-100"></div>
+  <div class="panel">
 
     <div class="btn-grp">
-      <input id="seek-to" type="number" placeholder="30">
-      <div id="go" class="h-100"> <img class="btn-grp-img" id="go-img" src="pin.png"> </div>
+      <button id="back5"><img src="r5.png"></button>
+      <button id="back10"><img src="r10.png"></button>
     </div>
-
-    <div class="w-100"></div>
-
-    <button id="pp" class=""><img src="pp.png"></button>
-    
-    <div class="w-100"></div>
 
     <div class="btn-grp">
-      <div id="slowdown" class="h-100"> <img class="btn-grp-img" id="slowdown-img" src="rw.png"> </div>
-      <div id="speedup"  class="h-100">  <img class="btn-grp-img" id="speedup-img" src="ff.png"> </div>
+      <input type="number" name="" id="set" placeholder="30"></input>
+      <button id="go"><img src="go.png"></button>
     </div>
 
-<!--     <button id="slowdown"><img src="rw.png"></button>
-    <button id="reset"><span>1.00</span></button>
-    <button id="speedup"><img src="ff.png"></button> -->
+    <div class="btn-grp">
+      <button id="pp" class=""><img src="pp.png"></button>
+    </div>
 
-    <div class="w-100"></div>
-    <button id="fs" class="pl-2"><img src="fs.png"></button>
-    <button id="rl" class="pl-2"><img src="clear.png"></button>
+    <div class="btn-grp">
+      <button id="slower"><img src="rw.png"></button>
+      <button id="faster"><img src="ff.png"></button>
+    </div>
+
+    <div class="btn-grp">
+      <button id="fs"><img src="fs.png"></button>
+    </div>
 
   </div>
-  <div class="row g-0">
+  <div class="container">
     <div id="player">
-      <input autofocus class="text-input mb-3" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
+      <input class="text-input" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
     </div>
   </div>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-  <script src="jquery.textfill.js"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
     var p;
 
@@ -69,6 +58,32 @@
       var match = url.match(regExp);
       return (match&&match[1].length==11)? match[1] : false;
     }
+
+    window.addEventListener('paste', e => {
+      console.log(e.clipboardData.getData('text'));
+
+      var link = e.clipboardData.getData('text')
+      var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+      
+      if(link.match(re))
+      {
+        p = new YT.Player('player', {
+          height: '450',
+          width: '800',
+          videoId: get_id_from_url(link),
+          playerVars: {
+            'controls' : 1,
+            'modestbranding' : 1,
+            'rel' : 0,
+            'fs' : 0
+          },
+          events: {
+            onReady: e => set_up(e),
+          }
+        });
+      }
+
+    });
 
     document.getElementById('youtubelink').addEventListener('input', (e) => {
       var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -128,12 +143,11 @@
       p.seekTo(p.getCurrentTime() - 5)
     });
 
-
     document.getElementById('back10').addEventListener('click', () => {
       p.seekTo(p.getCurrentTime() - 10)
     });
 
-    document.getElementById('speedup').addEventListener('click', () => {
+    document.getElementById('faster').addEventListener('click', () => {
       if (p)
       {
         var available_rates = p.getAvailablePlaybackRates()
@@ -146,7 +160,7 @@
       }
     });
 
-    document.getElementById('slowdown').addEventListener('click', () => {
+    document.getElementById('slower').addEventListener('click', () => {
       if (p)
       {      
         var available_rates = p.getAvailablePlaybackRates()
@@ -159,21 +173,21 @@
       }
     });
 
-    document.getElementById('rl').addEventListener('click', () => {
-      window.location.reload();
-    });
-
-    // document.getElementById('gotomarker').addEventListener('click', () => {
-    //   var marker = $("#goto").val()
-    //   if (marker > 0) {p.seekTo(marker)}
+    // document.getElementById('rl').addEventListener('click', () => {
+    //   window.location.reload();
     // });
+
+    document.getElementById('go').addEventListener('click', () => {
+      var marker = $("#set").val()
+      if (marker > 0) {p.seekTo(marker)}
+    });
 
     function _setplaybackrate(rate)
     {
       p.setPlaybackRate(rate)
       
-      var speedup_img  = document.getElementById("speedup-img");
-      var slowdown_img = document.getElementById("slowdown-img");
+      var speedup_img  = document.getElementById("faster");
+      var slowdown_img = document.getElementById("slower");
 
       if (rate > 1)
       {
