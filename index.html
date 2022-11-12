@@ -40,7 +40,7 @@
   </div>
   <div class="container">
     <div id="player">
-      <input class="text-input" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
+      <input autofocus class="text-input" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
     </div>
   </div>
 
@@ -59,31 +59,29 @@
       return (match&&match[1].length==11)? match[1] : false;
     }
 
-    window.addEventListener('paste', e => {
-      console.log(e.clipboardData.getData('text'));
-
-      var link = e.clipboardData.getData('text')
-      var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    // window.addEventListener('paste', e => {
+    //   console.log(e.clipboardData.getData('text'));
+    //   var link = e.clipboardData.getData('text')
+    //   var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
       
-      if(link.match(re))
-      {
-        p = new YT.Player('player', {
-          height: '450',
-          width: '800',
-          videoId: get_id_from_url(link),
-          playerVars: {
-            'controls' : 1,
-            'modestbranding' : 1,
-            'rel' : 0,
-            'fs' : 0
-          },
-          events: {
-            onReady: e => set_up(e),
-          }
-        });
-      }
-
-    });
+    //   if(link.match(re))
+    //   {
+    //     p = new YT.Player('player', {
+    //       height: '450',
+    //       width: '800',
+    //       videoId: get_id_from_url(link),
+    //       playerVars: {
+    //         'controls' : 1,
+    //         'modestbranding' : 1,
+    //         'rel' : 0,
+    //         'fs' : 0
+    //       },
+    //       events: {
+    //         onReady: e => set_up(e),
+    //       }
+    //     });
+    //   }
+    // });
 
     document.getElementById('youtubelink').addEventListener('input', (e) => {
       var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;

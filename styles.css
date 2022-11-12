@@ -94,7 +94,7 @@ button#back10, button#faster {
 }
 
 #set {
-	font-size: 12vh;
+	font-size: 11vh;
     width: 6vw;
     background: transparent;
     outline: none;
@@ -111,11 +111,11 @@ img {
 #youtubelink{
 	padding: 4vh;
 	border-radius: 25px;
-	font-size: 6vh;
+	font-size: 8vh;
 	background: transparent;
 	border: none;
 	caret-color: white;
-	display: none;
+	/*display: none;*/
 }
 
 #youtubelink:focus {
