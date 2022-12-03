@@ -20,7 +20,9 @@
     </div>
 
     <div class="btn-grp">
-      <input type="number" name="" id="set" placeholder="30"></input>
+      <input type="number" name="" id="min" placeholder="0"></input>
+      <div id="colon"><div>:</div></div>
+      <input type="number" name="" id="sec" placeholder="14"></input>
       <button id="go"><img src="go.png"></button>
     </div>
 
@@ -40,167 +42,11 @@
   </div>
   <div class="container">
     <div id="player">
-      <input autofocus class="text-input" type="text" placeholder="Paste YouTube URL here..." id="youtubelink">
+      <input autofocus class="text-input" type="text" placeholder="Paste YouTube link here..." id="youtubelink">
     </div>
   </div>
-
-
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
-
-  <script>
-    var p;
-
-    function get_id_from_url(url)
-    {
-      var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
-      var match = url.match(regExp);
-      return (match&&match[1].length==11)? match[1] : false;
-    }
-
-    // window.addEventListener('paste', e => {
-    //   console.log(e.clipboardData.getData('text'));
-    //   var link = e.clipboardData.getData('text')
-    //   var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-      
-    //   if(link.match(re))
-    //   {
-    //     p = new YT.Player('player', {
-    //       height: '450',
-    //       width: '800',
-    //       videoId: get_id_from_url(link),
-    //       playerVars: {
-    //         'controls' : 1,
-    //         'modestbranding' : 1,
-    //         'rel' : 0,
-    //         'fs' : 0
-    //       },
-    //       events: {
-    //         onReady: e => set_up(e),
-    //       }
-    //     });
-    //   }
-    // });
-
-    document.getElementById('youtubelink').addEventListener('input', (e) => {
-      var re = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-      if(e.target.value.match(re))
-      {
-        p = new YT.Player('player', {
-          height: '450',
-          width: '800',
-          videoId: get_id_from_url(e.target.value),
-          playerVars: {
-            'controls' : 1,
-            'modestbranding' : 1,
-            'rel' : 0,
-            'fs' : 0
-          },
-          events: {
-            onReady: e => set_up(e),
-          }
-        });
-      }
-    });
-
-    function set_up(e){
-      e.target.playVideo()
-    }
-
-    document.getElementById('fs').addEventListener('click', () => {
-      if (document.fullscreenElement != null){
-        document.exitFullscreen()
-      }
-
-      var element = document.body;
-      var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
-      if (requestMethod) { // Native full screen.
-        requestMethod.call(element);
-      } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-        if (wscript !== null) {
-          wscript.SendKeys("{F11}");
-        }
-      }
-    });
-
-    document.getElementById('pp').addEventListener('click', () => {
-      if (p)
-      {
-        if (p.getPlayerState() === 1) {
-          p.pauseVideo()
-        } else {
-          p.playVideo()
-        }
-      }
-    });
-
-    document.getElementById('back5').addEventListener('click', () => {
-      p.seekTo(p.getCurrentTime() - 5)
-    });
-
-    document.getElementById('back10').addEventListener('click', () => {
-      p.seekTo(p.getCurrentTime() - 10)
-    });
-
-    document.getElementById('faster').addEventListener('click', () => {
-      if (p)
-      {
-        var available_rates = p.getAvailablePlaybackRates()
-        var currentIndex = available_rates.indexOf(p.getPlaybackRate());
-
-        if(currentIndex + 1 < available_rates.length)
-        {
-          _setplaybackrate(available_rates[currentIndex + 1])
-        } 
-      }
-    });
-
-    document.getElementById('slower').addEventListener('click', () => {
-      if (p)
-      {      
-        var available_rates = p.getAvailablePlaybackRates()
-        var currentIndex = available_rates.indexOf(p.getPlaybackRate());
-
-        if(currentIndex > 0)
-        {
-          _setplaybackrate(available_rates[currentIndex - 1])
-        } 
-      }
-    });
-
-    // document.getElementById('rl').addEventListener('click', () => {
-    //   window.location.reload();
-    // });
-
-    document.getElementById('go').addEventListener('click', () => {
-      var marker = $("#set").val()
-      if (marker > 0) {p.seekTo(marker)}
-    });
-
-    function _setplaybackrate(rate)
-    {
-      p.setPlaybackRate(rate)
-      
-      var speedup_img  = document.getElementById("faster");
-      var slowdown_img = document.getElementById("slower");
-
-      if (rate > 1)
-      {
-        slowdown_img.classList.remove("red");
-        speedup_img.classList.add("green");
-      } else if (rate < 1)
-      {
-        slowdown_img.classList.add("red");
-        speedup_img.classList.remove("green");
-      } else {
-        slowdown_img.classList.remove("red");
-        speedup_img.classList.remove("green");
-      }
-    }
-
-  </script>
+  <script src="ytp.js"></script>
 </body>
 </html>
