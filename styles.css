@@ -2,14 +2,15 @@ body {
 	background-color: #222;
 	color: white;
 	margin: 0px;
-	min-height: 100vh;
+	height: 100%;
 	/* mobile viewport bug fix */
-	min-height: -webkit-fill-available;
+	/*min-height: -webkit-fill-available;*/
 	font-family: monospace;
 }
 
 html {
-	height: -webkit-fill-available;
+	height: 100%;
+	/*height: -webkit-fill-available;*/
 }
 
 .w-100 {
@@ -20,6 +21,9 @@ html {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .text-center {
@@ -33,7 +37,8 @@ html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 16vh;
+	height: 8vw;
+	max-height: 100px;
 	padding: 14px 0px;
 	/*background-image: linear-gradient(to top, #0000, #000);*/
 	overflow: hidden;
@@ -42,7 +47,7 @@ html {
 #player {
 	float: left;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -62,6 +67,11 @@ html {
 	/*box-shadow: 4px 4px 0px 0px purple;*/
 }
 
+.input-holder {
+	display: inherit;
+    width: 10vw;
+}
+
 button {
 	background-color: inherit;
 	height: 100%;
@@ -79,18 +89,18 @@ button:active {
 	background-color: inherit;
 }
 
-button#back10, button#faster {
+button#back10, button#faster, button#go {
 	background-color: #444;
 }
 
-button#go {
-	padding: 4vh 10px;
-}
+/*button#go {
+	padding: 10%;
+}*/
 
 #min {
 	padding-left: 16px;
-	font-size: 8vh;
-	width: 2.5vw;
+	font-size: min(4vw, 50px);
+	width: 2vw;
 	background: transparent;
 	outline: none;
 	box-shadow: none;
@@ -99,8 +109,8 @@ button#go {
 }
 
 #sec {
-	font-size: 8vh;
-	width: 4.5vw;
+	font-size: min(4vw, 50px);
+	width: 4vw;
 	background: transparent;
 	outline: none;
 	box-shadow: none;
@@ -141,6 +151,11 @@ img {
 
 .alert {
 	display: none;
+}
+
+.stat {
+    position: fixed;
+    background-color: #000;
 }
 
 @media(orientation: portrait){
