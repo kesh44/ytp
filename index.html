@@ -2,55 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <title>YTP - YouTube for Pianists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+  <title>Control Panel for YT</title>
 </head>
 <body onload="">
   <div class="alert">
-    <div>Please turn your<br>screen landscape!</div>
-  </div>
-  <div class="stat">
-    <div id="stats">
-      Speed: 1.00<br>Marker: 00:00
-    </div>
+    <div>Please turn your<br>phone landscape!</div>
   </div>
 
   <div class="panel">
 
     <div class="btn-grp">
-      <button id="back5"><img src="r5.png"></button>
-      <button id="back10"><img src="r10.png"></button>
+      <button id="back5"><i class="bi bi-skip-backward-fill"></i></button>
+      <button id="back10"><i class="bi bi-skip-backward"></i></button>
     </div>
 
     <div class="btn-grp">
-<!--       <div class="input-holder">
-        <input type="text" maxlength="1" id="min" placeholder="0"></input>
-        <div id="colon"><div>:</div></div>
-        <input type="text" maxlength="2" id="sec" placeholder="00"></input>
-      </div> -->
-      <button id="pin"><img src="pin.png"></button>
-      <button id="go"><img src="go.png"></button>
+      <input type="number" name="" id="min" class="kode-mono" placeholder="0"></input>
+      <div id="colon"><div>:</div></div>
+      <input type="number" name="" id="sec" class="kode-mono" placeholder="15"></input>
+      <button id="go"><i class="bi bi-bookmark-fill"></i></button>
     </div>
-
-<!--     <div class="btn-grp">
-      <button id="pp" class=""><img src="pp.png"></button>
-    </div> -->
 
     <div class="btn-grp">
-      <button id="slower"><img src="rw.png"></button>
-      <button id="faster"><img src="ff.png"></button>
+      <button id="pp">
+        <i id="play" class="bi bi-play-fill"></i>
+        <i id="pause" class="bi bi-pause-fill hidden"></i>
+      </button>
     </div>
 
-<!--     <div class="btn-grp">
-      <button id="fs"><img src="fs.png"></button>
-    </div> -->
+    <div class="btn-grp">
+      <button id="slower"><i class="bi bi-dash-lg"></i></button>
+      <div id="speed" class="kode-mono">1.00</div>
+      <button id="faster"><i class="bi bi-plus-lg"></i></button>
+    </div>
+
+    <div class="btn-grp">
+      <button id="fs"><i class="bi bi-fullscreen"></i></button>
+    </div>
 
   </div>
   <div class="container">
     <div id="player">
-      <input autofocus class="text-input" type="text" placeholder="Paste YouTube link here..." id="youtubelink">
+      <input autofocus class="text-input kode-mono" type="text" placeholder="Paste a YouTube link here..." id="youtubelink">
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
