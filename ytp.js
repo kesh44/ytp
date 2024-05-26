@@ -22,6 +22,7 @@ document.getElementById('youtubelink').addEventListener('input', (e) => {
       },
       events: {
         onReady: e => set_up(e),
+        onStateChange: update_pp()
       }
     });
   }
@@ -29,7 +30,6 @@ document.getElementById('youtubelink').addEventListener('input', (e) => {
 
 function set_up(e){
   e.target.playVideo()
-  update_pp()
 }
 
 function update_pp(){
@@ -65,10 +65,8 @@ document.getElementById('pp').addEventListener('click', () => {
   {
     if (p.getPlayerState() === 1) {
       p.pauseVideo()
-      update_pp()
     } else {
       p.playVideo()
-      update_pp()
     }
   }
 });
