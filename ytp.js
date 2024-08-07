@@ -16,13 +16,14 @@ document.getElementById('youtubelink').addEventListener('input', (e) => {
       width: '1920',
       videoId: get_id_from_url(e.target.value),
       playerVars: {
+        'color' : 'white',
         'controls' : 1,
+        'modestbranding' : 1,
         'rel' : 0,
         'fs' : 0
       },
       events: {
         onReady: e => set_up(e),
-        onStateChange: update_pp()
       }
     });
   }
@@ -30,6 +31,7 @@ document.getElementById('youtubelink').addEventListener('input', (e) => {
 
 function set_up(e){
   e.target.playVideo()
+  update_pp()
 }
 
 function update_pp(){
@@ -65,8 +67,10 @@ document.getElementById('pp').addEventListener('click', () => {
   {
     if (p.getPlayerState() === 1) {
       p.pauseVideo()
+      update_pp()
     } else {
       p.playVideo()
+      update_pp()
     }
   }
 });

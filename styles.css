@@ -9,10 +9,10 @@ body {
 
 
 .kode-mono {
-  font-family: "Kode Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+	font-family: "Kode Mono", monospace;
+	font-optical-sizing: auto;
+	font-weight: <weight>;
+	font-style: normal;
 }
 
 #speed {
@@ -80,7 +80,7 @@ i {
 	margin-left: 8px;
 	overflow: hidden;
 /*	box-shadow: 0 0px 10px rgb(0 0 0 / 90%);*/
-	box-shadow: 4px 4px 0px 0px black;
+box-shadow: 4px 4px 0px 0px black;
 }
 
 button {
@@ -106,7 +106,7 @@ button#back10, button#faster, button#slower {
 
 button#go {
 	margin-left: -8px;
-    margin-right: 8px;
+	margin-right: 8px;
 }
 
 button#pp {
@@ -114,8 +114,20 @@ button#pp {
 	margin-right: 15px;
 }
 
-.bi-bookmark-fill {
-	font-size: 22px;
+button#back5 {
+	font-size: 26px;
+	padding-left: 17px;
+	padding-right: 16px;
+}
+
+button#back10 {
+	font-size: 26px;
+	padding-left: 8px;
+	padding-right: 9px;
+}
+
+.bi-arrow-return-left::before {
+    padding-top: 4px;
 }
 
 #min {

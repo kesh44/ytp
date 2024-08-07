@@ -13,21 +13,28 @@
 </head>
 <body onload="">
   <div class="alert">
-    <div>Please turn your<br>phone landscape!</div>
+    <div>
+      <p>Please turn your<br>screen landscape!</div>
   </div>
 
   <div class="panel">
 
     <div class="btn-grp">
-      <button id="back5"><i class="bi bi-skip-backward-fill"></i></button>
-      <button id="back10"><i class="bi bi-skip-backward"></i></button>
+      <button id="back5" class="kode-mono">
+        -5
+        <!-- <i class="bi bi-skip-backward-fill"></i> -->
+      </button>
+      <button id="back10">
+        <div class="kode-mono">-10</div>
+        <!-- <i class="bi bi-skip-backward"></i> -->
+      </button>
     </div>
 
     <div class="btn-grp">
       <input type="number" name="" id="min" class="kode-mono" placeholder="0"></input>
       <div id="colon"><div>:</div></div>
-      <input type="number" name="" id="sec" class="kode-mono" placeholder="15"></input>
-      <button id="go"><i class="bi bi-bookmark-fill"></i></button>
+      <input type="number" name="" id="sec" class="kode-mono" placeholder="00"></input>
+      <button id="go"><i class="bi bi-arrow-return-left"></i></button>
     </div>
 
     <div class="btn-grp">
@@ -50,7 +57,7 @@
   </div>
   <div class="container">
     <div id="player">
-      <input autofocus class="text-input kode-mono" type="text" placeholder="Paste a YouTube link here..." id="youtubelink">
+      <input autofocus class="text-input kode-mono" type="text" placeholder="Paste a YouTube link here!" id="youtubelink">
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
